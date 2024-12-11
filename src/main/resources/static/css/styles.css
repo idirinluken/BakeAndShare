@@ -1,0 +1,180 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Navbar */
+/* styles.css */
+
+/* Establecer el navbar como sticky */
+nav {
+    top: 0;
+    width: 100%;
+    background-color: #333;  /* Color de fondo del navbar */
+    z-index: 1000;  /* Asegura que el navbar se quede encima de otros elementos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Agregar sombra sutil */
+}
+
+/* Estilos para los elementos dentro del navbar */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+
+/* Formulario de login */
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    margin: 50px auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+a.btn {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+a.btn:hover {
+    background-color: #218838;
+}
+
+/* Estilos para la página de home */
+.home-container {
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-container h1 {
+    text-align: center;
+}
+
+.home-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.home-container ul li {
+    margin: 10px 0;
+}
+
+.home-container ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+}
+
+.home-container ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para la sección de la imagen del home */
+.home-image-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-image {
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Estilos para la bienvenida */
+.home-welcome {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.home-welcome h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+.home-welcome p {
+    font-size: 1.2em;
+    color: #777;
+}
+
+/* Estilos para la descripción */
+.home-description {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #555;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+

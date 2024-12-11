@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home - Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+	
+	<div th:replace="~{fragments/user-navbar :: userNavbar}"></div>
+	
+	<div class="home-container">
+        <h1>Bienvenido, <span th:text="${nombreUsuario}"></span></h1>
+    </div>
+	
+	<!-- Fragmento común para la sección del home -->
+	<div th:replace="~{fragments/home-fragment :: homeSection}"></div>
+
+</body>
+</html>

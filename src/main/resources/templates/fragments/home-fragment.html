@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fragmentos del Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:fragment="homeSection">
+        <!-- Imagen de la tienda -->
+        <div class="home-image-container">
+            <img src="/images/tienda-pasteles.jpg" alt="Pastelería" class="home-image" />
+        </div>
+
+        <!-- Texto de bienvenida -->
+        <div class="home-welcome">
+            <h1>Bienvenidos a Bake and Share</h1>
+            <p>La mejor pastelería online, donde los pasteles son nuestra pasión.</p>
+        </div>
+
+        <!-- Descripción sobre la tienda -->
+        <div class="home-description">
+            <p>En Bake and Share, ofrecemos una amplia variedad de pasteles frescos y deliciosos, preparados con los mejores ingredientes para hacer de cada bocado una experiencia única. ¡Explora nuestra tienda y encuentra el pastel perfecto para tu ocasión especial!</p>
+        </div>
+    </div>
+</body>
+</html>
