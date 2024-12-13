@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Pasteles</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:fragment="userNavbar">
+        <nav class="navbar">
+            <ul>
+                <li><a th:href="@{/home}">Inicio</a></li>
+                <li><a th:href="@{/usuarios/editar}">Editar Datos Personales</a></li>
+                <li><a th:href="@{/pasteles}">Ver Lista de Pasteles</a></li>
+                <li><a th:href="@{/pedidos}">Ver Mis Pedidos</a></li>
+                <li><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h1>Lista de Pasteles Disponibles</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tiempo de Cocción</th>
+                    <th>Temperatura</th>
+                    <th>Cocinero</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pastel : ${pasteles}">
+                    <td th:text="${pastel.id}"></td>
+                    <td th:text="${pastel.receta.nombre}"></td>
+                    <td th:text="${pastel.receta.tiempoCoccion} + ' min'"></td>
+                    <td th:text="${pastel.receta.temperatura} + ' °C'"></td>
+                    <td th:text="${pastel.cocinero.nombre}"></td>
+                    <td>
+                        <a th:href="@{/pasteles/{id}(id=${pastel.id})}" class="btn btn-primary">Ver Detalles</a>
+                        <form th:action="@{/pasteles/pedido/{id}(id=${pastel.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-success">Hacer Pedido</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

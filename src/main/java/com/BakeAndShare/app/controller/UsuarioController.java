@@ -34,11 +34,12 @@ public class UsuarioController {
 
     // Guardar nuevo usuario
     @PostMapping("/nuevo")
-    public String guardarUsuario(@ModelAttribute Usuario usuario, Model model) {
+    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
         // Verificar si el correo ya está registrado
         if (usuarioRepository.findByDatosUsuarioEmail(usuario.getDatosUsuario().getEmail()).isPresent()) {
             // Si el correo ya está registrado, muestra un error
             model.addAttribute("error", "El correo electrónico ya está registrado.");
+            model.addAttribute("usuario", usuario); // Volver a pasar los datos al modelo
             return "registro"; // Vuelve al formulario de registro con el mensaje de error
         }
 

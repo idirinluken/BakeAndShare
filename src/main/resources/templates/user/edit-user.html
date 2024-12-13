@@ -29,6 +29,11 @@
             <input type="text" id="telefono" th:value="${usuario.datosUsuario.telefono}" name="telefono" required/>
             
             <button type="submit">Guardar Cambios</button>
+			
+			<div th:if="${error}" style="color: red;">
+			    <p th:text="${error}"></p>
+			</div>
+			
         </form>
 
         <a th:href="@{/home}" class="btn">Volver a la Página de Inicio</a>

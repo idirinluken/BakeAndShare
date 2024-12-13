@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mis Pedidos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:replace="~{fragments/user-navbar :: userNavbar}"></div>
+
+    <div class="home-container">
+        <h1>Mis Pedidos</h1>
+
+        <div th:if="${pasteles.isEmpty()}">
+            <p>No tienes pedidos realizados aún.</p>
+        </div>
+
+        <div th:if="${not pasteles.isEmpty()}">
+            <ul>
+                <li th:each="pastel : ${pasteles}">
+                    <h3 th:text="${pastel.numeroPedido}"></h3>
+                    <p th:text="${pastel.receta.nombre}"></p>
+                    <p th:text="${pastel.receta.ingredientes}"></p>
+                    <img th:src="@{${pastel.receta.imagenUrl}}" alt="Imagen del pastel" class="pastel-img" />
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

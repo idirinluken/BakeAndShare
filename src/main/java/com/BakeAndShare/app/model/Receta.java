@@ -21,7 +21,11 @@ public class Receta {
     private int temperatura;   // En grados Celsius
 
     @ElementCollection
+    @CollectionTable(name = "receta_ingredientes", joinColumns = @JoinColumn(name = "receta_nombre"))
+    @Column(name = "ingrediente")
     private List<String> ingredientes;
+
+    private String imagenUrl;  // URL o ruta de la imagen asociada a la receta
 
     @OneToOne
     @JoinColumn(name = "pastel_id")

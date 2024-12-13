@@ -21,6 +21,6 @@ public class Cocinero {
 
     private String especialidad;
 
-    @ManyToMany(mappedBy = "cocineros")
-    private List<Pastel> pasteles; 
+    @OneToMany(mappedBy = "cocinero", cascade = CascadeType.ALL)
+    private List<Pastel> pasteles; // Relación One-to-Many con Pastel
 }

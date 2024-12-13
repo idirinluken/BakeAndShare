@@ -24,6 +24,11 @@ public class Usuario {
 
     private String password;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Pastel> pasteles;
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_pastel", // Nombre de la tabla intermedia generada por Hibernate
+        joinColumns = @JoinColumn(name = "usuario_id"), // Clave foránea de Usuario
+        inverseJoinColumns = @JoinColumn(name = "pastel_id") // Clave foránea de Pastel
+    )
+    private List<Pastel> pasteles; // Lista de pasteles asociados al usuario
 }

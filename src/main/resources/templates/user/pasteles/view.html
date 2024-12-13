@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles del Pastel</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div th:replace="~{fragments/user-navbar :: userNavbar}"></div>
+
+    <div class="home-container">
+        <h1>Detalles del Pastel</h1>
+
+        <h3 th:text="${pastel.numeroPedido}"></h3>
+        <p th:text="${pastel.receta.nombre}"></p>
+        <p th:text="${pastel.receta.ingredientes}"></p>
+        <img th:src="@{${pastel.receta.imagenUrl}}" alt="Imagen del pastel" class="pastel-img" />
+
+        <form th:action="@{/pasteles/pedido/{id}(id=${pastel.id})}" method="post">
+            <button type="submit">Hacer Pedido</button>
+        </form>
+    </div>
+</body>
+</html>
