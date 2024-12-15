@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 @Configuration
@@ -26,6 +25,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/usuarios/nuevo", "/css/**").permitAll()  // Permitir acceso al login y registro
+                .requestMatchers("/usuarios/lista-usuarios", "/usuarios/nuevo-admin", "/pedidos-admin", "/cocineros", "/cocineros/formulario", "/pasteles/crear", "/pasteles/editar", "/pasteles/eliminar").hasRole("ADMIN")   // Solo los administradores pueden acceder
                 .requestMatchers("/admin/**").hasRole("ADMIN")  // Solo ADMIN puede acceder a /admin/**
                 .requestMatchers("/user/**").hasRole("USER")  // Solo USER puede acceder a /user/**
                 .anyRequest().authenticated()  // Todo lo demás requiere autenticación

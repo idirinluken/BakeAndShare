@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script>
+        function confirmarEliminacion(userId) {
+            const confirmed = confirm("¿Estás seguro de que deseas eliminar este usuario?");
+            if (confirmed) {
+                window.location.href = '/usuarios/eliminar/' + userId;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div th:replace="fragments/admin-navbar :: adminNavbar"></div>
+<div class="container-tabla">
+
+    <h1>Lista de Usuarios</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rol</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="usuario : ${usuarios}">
+                <td th:text="${usuario.id}"></td>
+                <td th:text="${usuario.rol == 1 ? 'Admin' : 'User'}"></td>
+                <td th:text="${usuario.datosUsuario.nombre}"></td>
+                <td th:text="${usuario.datosUsuario.apellido}"></td>
+                <td th:text="${usuario.datosUsuario.email}"></td>
+                <td th:text="${usuario.datosUsuario.telefono}"></td>
+                <td>
+                    <!-- Botón de Eliminar -->
+                     <!-- Deshabilitar si es admin -->
+                    <button th:if="${usuario.rol != 1}"
+                        th:attr="disabled=${usuario.rol == 1}"  
+                        class="btn-eliminar" 
+                        type="button" 
+                        th:onclick="'confirmarEliminacion(' + ${usuario.id} + ')'">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Botón para agregar nuevo usuario -->
+    <div>
+        <a th:href="@{/usuarios/nuevo-admin}">
+            <button type="button">Agregar Nuevo Usuario</button>
+        </a>
+    </div>
+
+    <a th:href="@{/home}" class="btn">Volver al inicio</a>
+
+    
+</div>
+
+</body>
+</html>

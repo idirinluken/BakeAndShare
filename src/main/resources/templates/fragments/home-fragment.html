@@ -5,10 +5,11 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-    <div th:fragment="homeSection">
+    <!-- Fragmento del Home -->
+    <div th:fragment="homeSection" class="home-section">
         <!-- Imagen de la tienda -->
         <div class="home-image-container">
-            <img src="/images/tienda-pasteles.jpg" alt="Pastelería" class="home-image" />
+            <img th:src="@{/images/tienda-pasteles.jpg}" alt="Pastelería" class="home-image" />
         </div>
 
         <!-- Texto de bienvenida -->
@@ -19,7 +20,7 @@
 
         <!-- Descripción sobre la tienda -->
         <div class="home-description">
-            <p>En Bake and Share, ofrecemos una amplia variedad de pasteles frescos y deliciosos, preparados con los mejores ingredientes para hacer de cada bocado una experiencia única. ¡Explora nuestra tienda y encuentra el pastel perfecto para tu ocasión especial!</p>
+            <p>En <strong>Bake and Share</strong>, ofrecemos una amplia variedad de pasteles frescos y deliciosos, preparados con los mejores ingredientes para hacer de cada bocado una experiencia única. ¡Explora nuestra tienda y encuentra el pastel perfecto para tu ocasión especial!</p>
         </div>
     </div>
 </body>

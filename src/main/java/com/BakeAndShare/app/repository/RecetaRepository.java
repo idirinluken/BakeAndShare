@@ -4,5 +4,6 @@ import  com.BakeAndShare.app.model.Receta;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecetaRepository extends JpaRepository<Receta, String> {
-    // Se pueden añadir métodos personalizados si es necesario
+    
+    Receta findByNombre(String nombre);  // Método para buscar recetas por nombre
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Pastel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${pastel.id != null ? 'Editar Pastel' : 'Añadir Nuevo Pastel'}"></h1>
+        
+        <form th:action="@{${pastel.id != null ? '/pasteles/editar/' + pastel.id : '/pasteles/crear'}}" method="post" enctype="multipart/form-data">
+            <!-- Campo oculto para el ID del pastel (solo si está editando) -->
+            <input type="hidden" th:if="${pastel.id != null}" th:name="id" th:value="${pastel.id}">
+
+            <!-- Nombre de la receta -->
+            <div class="mb-3">
+                <label for="nombreReceta" class="form-label">Nombre del Pastel</label>
+                <input type="text" class="form-control" id="nombreReceta" name="nombreReceta" th:value="${pastel.receta?.nombre}" required>
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" th:text="${pastel.descripcion}" required></textarea>
+            </div>
+
+            <!-- Precio -->
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="precio" name="precio" step="0.01" th:value="${pastel.precio}" required>
+            </div>
+
+            <!-- Imagen -->
+            <div class="mb-3">
+                <label for="imagen" class="form-label">Imagen del Pastel</label>
+                <input type="file" class="form-control" id="imagen" name="imagen" required>
+                <!-- Mostrar imagen actual si se está editando 
+                <div th:if="${pastel.receta?.imagenUrl}" class="mt-2">
+                    <img th:src="@{${pastel.receta.imagenUrl}}" alt="Imagen actual" width="200">
+                </div>-->
+            </div>
+
+            <!-- Ingredientes -->
+            <div class="mb-3">
+                <label for="ingredientes" class="form-label">Ingredientes (separados por comas)</label>
+                <input type="text" class="form-control" id="ingredientes" name="ingredientes" 
+                       th:value="${pastel.receta?.ingredientes?.join(', ')}" required>
+            </div>
+
+            <!-- Tiempo de Cocción -->
+            <div class="mb-3">
+                <label for="tiempoCoccion" class="form-label">Tiempo de Cocción (min)</label>
+                <input type="number" class="form-control" id="tiempoCoccion" name="tiempoCoccion" 
+                       th:value="${pastel.receta?.tiempoCoccion}" required>
+            </div>
+
+            <!-- Temperatura -->
+            <div class="mb-3">
+                <label for="temperatura" class="form-label">Temperatura (°C)</label>
+                <input type="number" class="form-control" id="temperatura" name="temperatura" 
+                       th:value="${pastel.receta?.temperatura}" required>
+            </div>
+
+            <!-- Cocinero -->
+            <div class="mb-3">
+                <label for="cocinero" class="form-label">Cocinero</label>
+                <select class="form-control" id="cocinero" name="cocineroId" required>
+                    <option value="" th:if="${pastel.cocinero == null}" selected>Sin asignar</option>
+                    <option th:each="cocinero : ${cocineros}" 
+                            th:value="${cocinero.id}" 
+                            th:text="${cocinero.nombre}" 
+                            th:selected="${pastel.cocinero?.id == cocinero.id}">
+                    </option>
+                </select>
+            </div>
+
+            
+            <!-- Mostrar mensaje de error si existe -->
+            <div th:if="${error}" style="color: red;">
+                <p th:text="${error}"></p>
+            </div>
+
+            <!-- Botón de guardar -->
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a th:href="@{/pasteles}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

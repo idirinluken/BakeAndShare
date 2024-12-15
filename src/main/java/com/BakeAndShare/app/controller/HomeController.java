@@ -3,6 +3,10 @@ package com.BakeAndShare.app.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -13,7 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.BakeAndShare.app.model.Cocinero;
+import com.BakeAndShare.app.model.Pastel;
 import com.BakeAndShare.app.model.Usuario;
+import com.BakeAndShare.app.repository.CocineroRepository;
 import com.BakeAndShare.app.repository.PastelRepository;
 import com.BakeAndShare.app.repository.UsuarioRepository;
 
@@ -30,7 +37,8 @@ public class HomeController {
     @Autowired
     private PastelRepository pastelRepository;
     
-
+    @Autowired
+    private CocineroRepository cocineroRepository;
     
     @GetMapping("/")
     public String mostrarLogin(Model model) {
@@ -66,6 +74,71 @@ public class HomeController {
         }
         return "redirect:/"; // Redirigir al login después de logout
     }
+
+    @GetMapping("/cocineros")
+    public String verCocineros(Model model) {
+        // Obtiene todos los cocineros con sus pasteles
+        List<Cocinero> cocineros = cocineroRepository.findAll();
+        List<Pastel> pasteles = pastelRepository.findAll();
+        
+        model.addAttribute("pasteles", pasteles);
+        
+        model.addAttribute("cocineros", cocineros);
+        return "admin/cocineros";
+    }
+
+    @GetMapping("/cocineros/formulario")
+    public String mostrarFormularioCocinero(@RequestParam(required = false) Long id, Model model) {
+        Cocinero cocinero = (id != null) ? cocineroRepository.findById(id).orElse(new Cocinero()) : new Cocinero();
+        model.addAttribute("cocinero", cocinero);
+        return "admin/cocinero-formulario"; // Vista del formulario
+    }
+
+    @PostMapping("/cocineros/guardar")
+    public String guardarCocinero(Cocinero cocinero) {
+        cocineroRepository.save(cocinero); // Guarda o actualiza el cocinero
+        return "redirect:/cocineros"; // Redirige a la lista de cocineros
+    }
+
+    @GetMapping("/cocineros/eliminar")
+    public String eliminarCocinero(@RequestParam Long id) {
+        cocineroRepository.deleteById(id); // Elimina el cocinero
+        return "redirect:/cocineros"; // Redirige a la lista de cocineros
+    }
+
+    // Método para añadir un pastel a los pedidos del usuario
+    @PostMapping("/pedir-pastel")
+    public String pedirPastel(Authentication authentication, @RequestParam Long pastelId, Model model) {
+        // Obtener el email del usuario autenticado
+        String email = authentication.getName();
+
+        // Buscar el usuario por su email
+        Usuario usuario = usuarioRepository.findByDatosUsuarioEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        // Buscar el pastel por su ID
+        Pastel pastel = pastelRepository.findById(pastelId)
+                .orElseThrow(() -> new IllegalArgumentException("Pastel no encontrado"));
+
+        // Añadir el pastel a la lista de pasteles del usuario
+        usuario.getPasteles().add(pastel);
+
+        // Guardar los cambios en la base de datos
+        usuarioRepository.save(usuario);
+
+        // Redirigir a la página de pedidos
+        model.addAttribute("pasteles", usuario.getPasteles()); // Mostrar los pasteles del usuario
+        return "user/lista-pedidos"; // Página de pedidos del usuario
+    }
+
+    @GetMapping("/pedidos-admin")
+    public String verPedidos(Model model) {
+        // Obtiene todos los usuarios que han pedido pasteles
+        List<Usuario> usuariosConPedidos = usuarioRepository.findByPastelesIsNotNull();
+        
+        model.addAttribute("usuarios", usuariosConPedidos);
+        return "admin/pedidos";
+    }
     
     // Mostrar lista de pasteles (pedidos) de un usuario
     @GetMapping("/pedidos")
@@ -79,7 +152,32 @@ public class HomeController {
 
         // Mostrar los pasteles (pedidos) asociados a ese usuario
         model.addAttribute("pasteles", usuario.getPasteles()); // Agregamos los pasteles al modelo
-        return "user/pedidos"; // Vista que muestra los pasteles del usuario
+        return "user/lista-pedidos"; // Vista que muestra los pasteles del usuario
+    }
+
+    //Cancelar pedido
+    @GetMapping("/cancelarPedido")
+    public String cancelarPedido(@RequestParam("id") Long id, Authentication authentication, Model model) {
+        // Obtener el email del usuario autenticado
+        String email = authentication.getName();  // Obtiene el nombre de usuario del contexto de seguridad
+        
+        // Buscar el usuario por su email
+        Usuario usuario = usuarioRepository.findByDatosUsuarioEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        
+        // Buscar el pastel por su ID
+        Pastel pastel = pastelRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pastel no encontrado"));
+
+        // Eliminar el pastel de los pedidos del usuario
+        usuario.getPasteles().remove(pastel); // Remover el pastel de la lista de pasteles del usuario
+
+        // Guardar los cambios en la base de datos
+        usuarioRepository.save(usuario);
+        
+        // Redirigir a la página de pedidos del usuario
+        model.addAttribute("pasteles", usuario.getPasteles()); // Actualizamos el modelo con los nuevos pedidos
+        return "user/lista-pedidos"; // Página de pedidos del usuario actualizada
     }
 
     @GetMapping("/usuarios/editar")

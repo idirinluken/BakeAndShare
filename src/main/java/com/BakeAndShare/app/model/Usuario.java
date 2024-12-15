@@ -25,10 +25,8 @@ public class Usuario {
     private String password;
 
     @ManyToMany
-    @JoinTable(
-        name = "usuario_pastel", // Nombre de la tabla intermedia generada por Hibernate
-        joinColumns = @JoinColumn(name = "usuario_id"), // Clave foránea de Usuario
-        inverseJoinColumns = @JoinColumn(name = "pastel_id") // Clave foránea de Pastel
-    )
+    @JoinTable(name = "usuario_pastel", 
+               joinColumns = @JoinColumn(name = "usuario_id"), 
+               inverseJoinColumns = @JoinColumn(name = "pastel_id"))
     private List<Pastel> pasteles; // Lista de pasteles asociados al usuario
 }

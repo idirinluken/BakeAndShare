@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Detalles del Pastel</title>
+    <title>Lista de Pasteles</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 
     <div th:replace="~{fragments/user-navbar :: userNavbar}"></div>
 
-    <div th:replace="~{fragments/list-pastel :: detallePastel}"></div>
-
-    
-
+    <div th:replace="~{fragments/list-pastel :: listaPastel}"></div>
 </body>
 </html>

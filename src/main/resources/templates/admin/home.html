@@ -5,20 +5,13 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-    <div class="home-container">
-        <h1>Bienvenido al panel de administración</h1>
-        <nav>
-            <ul>
-                <li><a th:href="@{/usuarios}">Ver Lista de Usuarios</a></li>
-                <li><a th:href="@{/pedidos}">Ver Todos los Pedidos</a></li>
-                <li><a th:href="@{/recetas}">Ver Todas las Recetas</a></li>
-                <li><a th:href="@{/cocineros}">Ver Todos los Cocineros</a></li>
-                <li><a th:href="@{/pasteles}">Ver Todos los Pasteles Hechos</a></li>
-                <li><a th:href="@{/logout}">Logout</a></li>
-            </ul>
-        </nav>
-    </div>
-	<!-- Fragmento común para la sección del home -->
-	<div th:replace="fragments/home-fragment :: homeSection"></div>
+    
+	<div th:replace="fragments/admin-navbar :: adminNavbar"></div>
+	<br>
+	<div class="home-container">
+		<h1>Bienvenido, ADMIN</h1>
+		<!-- Fragmento común para la sección del home -->
+		<div th:replace="fragments/home-fragment :: homeSection"></div>
+	</div>
 </body>
 </html>

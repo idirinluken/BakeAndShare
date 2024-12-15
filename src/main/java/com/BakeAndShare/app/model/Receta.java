@@ -20,14 +20,14 @@ public class Receta {
     
     private int temperatura;   // En grados Celsius
 
-    @ElementCollection
+    @ElementCollection 
     @CollectionTable(name = "receta_ingredientes", joinColumns = @JoinColumn(name = "receta_nombre"))
     @Column(name = "ingrediente")
     private List<String> ingredientes;
 
     private String imagenUrl;  // URL o ruta de la imagen asociada a la receta
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)  // Añadido cascade ALL para las relaciones de la receta
     @JoinColumn(name = "pastel_id")
     private Pastel pastel;
 }

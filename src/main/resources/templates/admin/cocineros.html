@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocineros y sus Pasteles</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+	<div th:replace="fragments/admin-navbar :: adminNavbar"></div>
+
+    <div class="container-tabla">
+
+        <h1>Cocineros y sus Pasteles</h1>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID del Cocinero</th>
+                    <th>Nombre del Cocinero</th>
+                    <th>Especialidad</th>
+                    <th>Pasteles</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cocinero : ${cocineros}">
+                    <td th:text="${cocinero.id}"></td>
+                    <td th:text="${cocinero.nombre}"></td>
+                    <td th:text="${cocinero.especialidad}"></td>
+                    <td>
+                        <select>
+                            <option th:if="${#lists.isEmpty(cocinero.pasteles)}" disabled>No hay pasteles</option>
+                            <option value="" disabled selected>Pasteles que hace:</option>
+                            <option th:if="${pastel.receta != null}" th:each="pastel : ${cocinero.pasteles}" th:text="${pastel.receta.nombre}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <a th:href="@{/cocineros/formulario(id=${cocinero.id})}" class="btn btn-accion">
+                            Editar
+                        </a>
+                        <a th:href="@{/cocineros/eliminar(id=${cocinero.id})}" class="btn-eliminar" 
+                        onclick="return confirm('¿Estás seguro de eliminar este cocinero?');">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/cocineros/formulario}" class="btn btn-accion">Añadir Cocinero</a>
+
+        <a th:href="@{/home}" class="btn">Volver al inicio</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos de Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+	<div th:replace="fragments/admin-navbar :: adminNavbar"></div>
+
+    <div class="container-tabla">
+
+        <h1>Pedidos de Usuarios</h1>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID del Usuario</th>
+                    <th>Nombre del Usuario</th>
+                    <th>Pasteles pedidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Itera sobre los usuarios -->
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.id}">ID del Usuario</td>
+                    <td th:text="${usuario.datosUsuario.nombre} + ' ' + ${usuario.datosUsuario.apellido}">Nombre del Usuario</td>
+                    <td>
+                        <!-- Si el usuario tiene pasteles, muestra un select con todos los pasteles -->
+                        <select>
+                            <option value="" disabled selected>Pasteles pedidos:</option>
+                            <option th:each="pastel : ${usuario.pasteles}" 
+                                    th:value="${pastel.id}" 
+                                    th:text="${pastel.id + ' - ' + pastel.receta.nombre}"></option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/home}" class="btn">Volver al inicio</a>
+    </div>
+</body>
+</html>

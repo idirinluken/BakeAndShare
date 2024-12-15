@@ -14,4 +14,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     // Buscar por ID
     Optional<Usuario> findById(Long id);
+
+    // Método para encontrar usuarios que han pedido al menos un pastel
+    List<Usuario> findByPastelesIsNotNull();
 }

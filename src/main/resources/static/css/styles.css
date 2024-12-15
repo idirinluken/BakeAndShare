@@ -1,64 +1,66 @@
 /* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
 }
 
 h1 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    color: #333;
 }
 
 /* Navbar */
-/* styles.css */
-
-/* Establecer el navbar como sticky */
 nav {
+    position: fixed;
     top: 0;
     width: 100%;
-    background-color: #333;  /* Color de fondo del navbar */
-    z-index: 1000;  /* Asegura que el navbar se quede encima de otros elementos */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Agregar sombra sutil */
+    background-color: #343a40;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para los elementos dentro del navbar */
 nav ul {
     list-style-type: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0 20px;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
     padding: 10px 15px;
     display: block;
 }
 
 nav ul li a:hover {
-    background-color: #555;
+    background-color: #495057;
     border-radius: 5px;
 }
 
+ul {
+    list-style-type: none;
+}
 
-/* Formulario de login */
+/* Formularios */
 .container {
     background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
     margin: 50px auto;
+    text-align: center;
 }
 
 form {
@@ -67,23 +69,29 @@ form {
 }
 
 label {
-    margin: 10px 0 5px;
+    margin: 15px 0 5px;
+    font-size: 14px;
+    color: #555;
 }
 
 input {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+    color: #333;
 }
 
 button {
-    padding: 10px;
+    padding: 12px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
 }
 
 button:hover {
@@ -92,30 +100,33 @@ button:hover {
 
 a.btn {
     display: block;
-    margin-top: 10px;
-    padding: 10px;
+    margin-top: 20px;
+    padding: 12px;
     background-color: #28a745;
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    width: auto;
 }
 
 a.btn:hover {
     background-color: #218838;
 }
 
-/* Estilos para la página de home */
+/* Página de Home */
 .home-container {
-    margin: 50px auto;
-    padding: 20px;
-    max-width: 800px;
+    margin: 70px auto;
+    padding: 30px;
+    max-width: 850px;
     background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .home-container h1 {
     text-align: center;
+    font-size: 2.5em;
+    color: #333;
 }
 
 .home-container ul {
@@ -124,36 +135,34 @@ a.btn:hover {
 }
 
 .home-container ul li {
-    margin: 10px 0;
+    margin: 12px 0;
 }
 
 .home-container ul li a {
     text-decoration: none;
     color: #007bff;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .home-container ul li a:hover {
     text-decoration: underline;
 }
 
-/* Estilos para la sección de la imagen del home */
 .home-image-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .home-image {
-    width: 80%;
-    max-width: 600px;
+    width: 85%;
+    max-width: 650px;
     height: auto;
     border-radius: 10px;
 }
 
-/* Estilos para la bienvenida */
 .home-welcome {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .home-welcome h1 {
@@ -161,197 +170,312 @@ a.btn:hover {
     color: #333;
 }
 
-.home-welcome p {
-    font-size: 1.2em;
+.home-welcome p, .home-description p {
+    font-size: 1.3em;
     color: #777;
-}
-
-/* Estilos para la descripción */
-.home-description {
     text-align: center;
-    margin-top: 20px;
-    font-size: 1.1em;
-    color: #555;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-/* Lista de pasteles */
-.pastel-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+/* Estilo de Cards */
+.card, .pastel-item, .receta-item, .pedido-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-top: 30px;
 }
 
-.pastel-item {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+.card:hover, .pastel-item:hover, .receta-item:hover, .pedido-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.pastel-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.pastel-image {
+.card-img-top, .pastel-image, .receta-image, .pedido-image {
     width: 100%;
-    height: 180px;
     object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
 
-.pastel-info {
-    padding: 15px;
+.card-body, .pastel-info, .receta-info, .pedido-info {
+    padding: 20px;
 }
 
-.pastel-info h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.card-title, .pastel-info h2, .receta-info h2, .pedido-info h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
     color: #333;
 }
 
-.pastel-info p {
-    font-size: 1em;
+.card-text, .pastel-info p, .receta-info p, .pedido-info p {
+    font-size: 1.1rem;
     color: #777;
-    margin-bottom: 15px;
 }
 
-.btn-pedir {
+.btn {
+    padding: 12px;
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Botón Cancelar */
+.btn-cancelar {
+    background-color: #dc3545;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-cancelar:hover {
+    background-color: #b02a37;
+}
+
+/* Botón Pedir */
+.btn-pedir {
+    background-color: #28a745;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn-pedir:hover {
-    background-color: #0056b3;
-}
-/* Lista de recetas */
-.receta-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 30px;
+    background-color: #218838;
 }
 
-.receta-item {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 320px;
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.receta-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.receta-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-}
-
-.receta-info {
-    padding: 15px;
-    text-align: left;
-}
-
-.receta-info h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.receta-info p {
-    font-size: 1em;
-    color: #777;
-    margin-bottom: 10px;
-}
-
-.admin-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
+/* Botón Acción */
 .btn-accion {
     background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 15px;
+    padding: 12px;
+    font-size: 16px;
     border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.9em;
+    cursor: pointer;
+    width: 100%;
 }
 
 .btn-accion:hover {
     background-color: #0056b3;
 }
 
+/* Botón Eliminar */
 .btn-eliminar {
     background-color: #dc3545;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn-eliminar:hover {
     background-color: #b02a37;
 }
-.home-container {
-    margin: 50px auto;
-    padding: 20px;
-    max-width: 800px;
+
+/* Estilo de Cards */
+.pastel-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    gap: 30px; /* Espacio entre las cards */
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.pastel-item {
+    max-width: 400px; /* Ancho máximo de cada card */
     background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.home-container h1 {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     text-align: center;
-    font-size: 2em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto; /* Centrar las cards en su columna */
 }
 
-.home-container ul {
-    list-style-type: none;
-    padding: 0;
+.pastel-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.home-container ul li {
-    margin: 20px 0;
+.card-img-top {
+    width: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+    height: 250px; /* Altura ajustada para una mejor apariencia */
 }
 
-.home-container ul li h3 {
-    font-size: 1.5em;
+.card-body {
+    padding: 20px;
+}
+
+.card-title, .pastel-info h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
     color: #333;
 }
 
-.home-container ul li p {
-    font-size: 1.1em;
-    color: #555;
+.card-text, .pastel-info p {
+    font-size: 1.1rem;
+    color: #777;
 }
 
-.pastel-img {
+/* Media Query para pantallas más pequeñas */
+@media (max-width: 1024px) {
+    .pastel-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .pastel-list {
+        grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas */
+    }
+}
+
+
+/* Control de tamaño de las imágenes dentro de las cards */
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+
+.card {
     width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 10px;
-    margin-top: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.card-body {
+    padding: 20px;
+}
+/* Estilo para la tabla */
+table {
+    width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
+    margin: 20px 0; /* Márgenes arriba y abajo */
+    border-collapse: collapse; /* Elimina los espacios entre celdas */
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border-radius: 8px;
+    overflow: hidden; /* Evita que el contenido se desborde */
+    align-self: center;
+}
+
+table thead {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+table th, table td {
+    padding: 12px 20px; /* Añade padding para los textos */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+table th {
+    font-weight: bold;
+    text-align: center;
+}
+
+table td {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+
+/* Asegura que la tabla sea desplazable horizontalmente si el contenido es muy ancho */
+.container-tabla {
+    overflow-x: auto; /* Permite desplazamiento horizontal */
+    padding: 30px; /* Añadir algo de padding */
+    width: 90%;
+}
+
+/* Botón de eliminar */
+.btn-eliminar {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    width: auto;
+}
+
+.btn-eliminar:hover {
+    background-color: #b02a37;
+}
+
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: none;
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Botón para volver al inicio */
+a.volver-inicio {
+    display: block;
+    margin: 20px auto;
+    width: 20px;
+    text-align: center;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    align-self: center;
+}
+
+a.volver-inicio:hover {
+    background-color: #218838;
+}
+
+select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+    width: 100%;
+    max-width: 200px;
+    appearance: none;  /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+option {
+    padding: 10px;
 }
