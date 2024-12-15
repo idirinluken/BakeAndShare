@@ -13,8 +13,8 @@
         <h1>Lista de Pasteles</h1>
         <div class="row pastel-list">
             <!-- Iteramos sobre los pasteles -->
-            <div th:each="pastel : ${pasteles}" class="col-md-4">
-                <div th:if="${pastel.receta != null}" class="card pastel-item">
+            <div th:if="${pastel.receta != null}" th:each="pastel : ${pasteles}" class="col-md-4">
+                <div class="card pastel-item">
                     <img th:src="@{${pastel.receta.imagenUrl}}" class="card-img-top" alt="Imagen de pastel" style="object-fit: cover; height: 200px;">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${pastel.receta.nombre}"></h5>
@@ -68,10 +68,11 @@
                 </form>
             </div>
     
-            <!-- Botón "Editar pastel" solo para admin -->
+            <!-- Botón "Editar pastel" solo para admin 
             <div th:if="${rol.contains('ROLE_ADMIN')}">
                 <a th:href="@{/pasteles/editar/{id}(id=${pastel.id})}" class="btn btn-accion">Editar pastel</a>
             </div>
+            -->
         </div>
         <!-- Enlace "Volver a la lista" ajustado según el origen -->
         <a th:href="${origen == 'pedidos' ? '/pedidos' : '/pasteles'}" class="btn btn-primary">Volver a la lista</a>

@@ -42,6 +42,7 @@ public class PastelController {
     // Mostrar la lista de pasteles
     @GetMapping
     public String listarPasteles(Model model) {
+        
         List<Pastel> pasteles = pastelRepository.findAll();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -142,6 +143,7 @@ public class PastelController {
         nuevaReceta.setNombre(nombreReceta);
         nuevaReceta.setTiempoCoccion(tiempoCoccion);
         nuevaReceta.setTemperatura(temperatura);
+        nuevaReceta.setPastel(pastel);
     
         // Procesar los ingredientes
         if (ingredientes != null && !ingredientes.trim().isEmpty()) {
@@ -156,9 +158,6 @@ public class PastelController {
     
         // Guardar la receta en la base de datos
         recetaRepository.save(nuevaReceta);
-    
-        // Asignar la receta al pastel
-        pastel.setReceta(nuevaReceta);
     
         // Asignar el cocinero, si se recibe un cocineroId
         if (cocineroId != null) {
@@ -176,73 +175,74 @@ public class PastelController {
     
 
     @PostMapping("/editar/{id}")
-    public String editarPastel(@PathVariable Long id, 
-                                @ModelAttribute Pastel pastel, 
-                                @RequestParam("ingredientes") String ingredientes,
-                                @RequestParam(value = "imagen", required = false) MultipartFile imagen,
-                                @RequestParam(value = "nombreReceta", required = false) String nombreReceta,
-                                @RequestParam(value = "tiempoCoccion", required = false) Integer tiempoCoccion,
-                                @RequestParam(value = "temperatura", required = false) Integer temperatura,
-                                @RequestParam(value = "cocineroId", required = false) Long cocineroId, // Recibimos el ID del cocinero
-                                Model model) {
-        // Buscar el pastel existente en la base de datos
-        Pastel pastelExistente = pastelRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Pastel no encontrado"));
-        
-        // Obtener la receta del pastel
-        Receta recetaExistente = pastelExistente.getReceta();
-        
-        // Validar que el nombre de la receta no esté repetido en la base de datos
-        if (nombreReceta != null && !nombreReceta.trim().isEmpty()) {
-            Receta recetaConMismoNombre = recetaRepository.findByNombre(nombreReceta);
-            if (recetaConMismoNombre != null && !recetaConMismoNombre.getNombre().equals(recetaExistente.getNombre())) {
-                model.addAttribute("error", "El nombre de la receta ya existe.");
-                return "admin/pasteles/formulario-pastel";  // Regresar al formulario con un mensaje de error
+    public String editarPastel(
+            @PathVariable Long id,
+            @RequestParam String nombrePastel,
+            @RequestParam String nombreReceta,
+            @RequestParam(required = false) String ingredientes,
+            @RequestParam(required = false) MultipartFile imagen,
+            @RequestParam(required = false) Long cocineroId,
+            @RequestParam Double precio,
+            @RequestParam String descripcion,
+            Model model) {
+        try {
+            // Buscar el pastel existente
+            Pastel pastelExistente = pastelRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Pastel no encontrado con ID: " + id));
+    
+            // Actualizar los datos del pastel
+            pastelExistente.setDescripcion(descripcion);
+            pastelExistente.setPrecio(precio);
+    
+            // Gestionar el cocinero
+            if (cocineroId != null) {
+                Cocinero cocinero = cocineroRepository.findById(cocineroId)
+                        .orElseThrow(() -> new IllegalArgumentException("Cocinero no encontrado con ID: " + cocineroId));
+                pastelExistente.setCocinero(cocinero);
+            } else {
+                pastelExistente.setCocinero(null); // Desasignar cocinero si es necesario
             }
+    
+            // Gestionar la receta
+            Receta recetaExistente = pastelExistente.getReceta();
+            if (recetaExistente == null) {
+                recetaExistente = new Receta();
+                pastelExistente.setReceta(recetaExistente);
+            }
+    
+            // Actualizar el nombre de la receta
             recetaExistente.setNombre(nombreReceta);
+    
+            // Actualizar ingredientes si se proporcionan
+            if (ingredientes != null && !ingredientes.trim().isEmpty()) {
+                recetaExistente.setIngredientes(Arrays.asList(ingredientes.split(",")));
+            }
+    
+            // Gestionar la imagen
+            if (imagen != null && !imagen.isEmpty()) {
+                String imagenUrl = guardarImagen(imagen); // Método para subir la imagen
+                recetaExistente.setImagenUrl(imagenUrl);
+            }
+    
+            // Guardar los cambios en el repositorio
+            recetaRepository.save(recetaExistente); // Guardar la receta actualizada
+            pastelRepository.save(pastelExistente); // Guardar el pastel con los cambios
+    
+            return "redirect:/pasteles"; // Redirigir a la lista de pasteles
+        } catch (Exception e) {
+            // Manejar errores y volver a la vista de edición con un mensaje de error
+            model.addAttribute("error", "Error al editar el pastel: " + e.getMessage());
+            model.addAttribute("pastel", pastelRepository.findById(id).orElse(null)); // Recargar datos del pastel
+            model.addAttribute("cocineros", cocineroRepository.findAll()); // Recargar lista de cocineros
+            return "admin/pasteles/formulario-pastel"; // Volver a la página de edición
         }
-
-        // Actualizar otros campos de la receta
-        if (tiempoCoccion != null) {
-            recetaExistente.setTiempoCoccion(tiempoCoccion);
-        }
-        if (temperatura != null) {
-            recetaExistente.setTemperatura(temperatura);
-        }
-        
-        // Si se reciben nuevos ingredientes, procesarlos
-        if (ingredientes != null && !ingredientes.trim().isEmpty()) {
-            recetaExistente.setIngredientes(Arrays.asList(ingredientes.split(",")));
-        }
-        
-        // Si se sube una nueva imagen, guardarla y actualizar la URL
-        if (imagen != null && !imagen.isEmpty()) {
-            String imagenUrl = guardarImagen(imagen);
-            recetaExistente.setImagenUrl(imagenUrl);
-        }
-
-        // Guardar los cambios en la receta
-        recetaRepository.save(recetaExistente);
-        
-        // Actualizar el cocinero, si se recibe un cocineroId
-        if (cocineroId != null) {
-            Cocinero cocinero = cocineroRepository.findById(cocineroId)
-                    .orElseThrow(() -> new IllegalArgumentException("Cocinero no encontrado"));
-            pastelExistente.setCocinero(cocinero);
-        }
-
-        // Guardar los cambios en el pastel
-        pastelExistente.setReceta(recetaExistente);
-        pastelRepository.save(pastelExistente);
-        
-        // Redirigir a la lista de pasteles
-        return "redirect:/pasteles";
     }
-
+    
+    
 
     private String guardarImagen(MultipartFile imagen) {
         try {
-            String directorioImagenes = "/images";
+            String directorioImagenes = "src/main/resources/static/images";
             Path ruta = Paths.get(directorioImagenes + "/" + imagen.getOriginalFilename());
             Files.copy(imagen.getInputStream(), ruta);
             return "/images/" + imagen.getOriginalFilename(); // Retorna la URL de la imagen
