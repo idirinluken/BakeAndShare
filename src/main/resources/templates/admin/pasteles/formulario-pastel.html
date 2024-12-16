@@ -42,11 +42,11 @@
                 </div>
             </div>
 
-            <!-- Ingredientes -->
+			<!-- Ingredientes -->
             <div class="mb-3">
                 <label for="ingredientes" class="form-label">Ingredientes (separados por comas)</label>
                 <input type="text" class="form-control" id="ingredientes" name="ingredientes" 
-                 th:value="${#lists.isEmpty(pastel.receta.ingredientes) ? '' : #strings.join(pastel.receta.ingredientes, ', ')}" required>
+                       th:value="${pastel.receta?.ingredientes?.join(', ')}" required>
             </div>
 
             <!-- Tiempo de Cocción -->
