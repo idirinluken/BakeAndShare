@@ -111,13 +111,13 @@ public class PastelController {
         return "admin/pasteles/formulario-pastel";
     }
 
-    @GetMapping("/editar/{id}")
-    public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
-        Pastel pastel = pastelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pastel no encontrado"));
-        model.addAttribute("pastel", pastel);
-        model.addAttribute("cocineros", cocineroRepository.findAll());
-        return "admin/pasteles/formulario-pastel";
-    }
+    //@GetMapping("/editar/{id}")
+    //public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
+    //    Pastel pastel = pastelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pastel no encontrado"));
+    //    model.addAttribute("pastel", pastel);
+    //    model.addAttribute("cocineros", cocineroRepository.findAll());
+    //    return "admin/pasteles/formulario-pastel";
+    //}
 
     @PostMapping("/crear")
     public String crearPastel(@ModelAttribute Pastel pastel, 
@@ -173,7 +173,7 @@ public class PastelController {
         return "redirect:/pasteles";
     }
     
-
+    /*
     @PostMapping("/editar/{id}")
     public String editarPastel(
             @PathVariable Long id,
@@ -237,7 +237,7 @@ public class PastelController {
             return "admin/pasteles/formulario-pastel"; // Volver a la página de edición
         }
     }
-    
+    */
     
 
     private String guardarImagen(MultipartFile imagen) {
